@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	<mapper namespace="com.icss.dao.CartDao">
+	<resultMap type="cart" id="cartBook">
+		<id property="cartId" column="cartId"/>
+		<result property="clientId" column="clientId"/>
+		<result property="cnt" column="cnt"/>
+		<association property="bookId" column="bookId" javaType="book">
+			<id property="bookid" column="bookid"/>
+			<result property="bookname" column="bookname"/>
+			<result property="author" column="author"/>
+			<result property="price" column="price"/>
+			
+		</association>
+	</resultMap>
+	<select id="findCartBookByClient" resultMap="cartBook">
+		select * from cart ct,book bk where ct.bookId = bk.bookId and clientId = #{clientId};
+	</select>
+</mapper>
